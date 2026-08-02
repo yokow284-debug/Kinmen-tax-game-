@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>金門e化互動遊戲－隨機抽題分流</title>
+    <script>
+        // 把 A 卷與 B 卷表單網址放進來
+        const forms = [
+            "https://docs.google.com/forms/d/1uMYk7SqLIgChX7iixLyfQB8TYCYl0s2az8cRgs-JJUY/edit",
+            "https://docs.google.com/forms/d/1GExvo5tsiER1oMqc-1q3J6qVNWCilc9y7plRJ8okQsk/edit"
+        ];
+
+        // 自動隨機挑選並跳轉
+        window.onload = function() {
+            const randomIndex = Math.floor(Math.random() * forms.length);
+            window.location.replace(forms[randomIndex]);
+        };
+    </script>
+</head>
+<body>
+    <p>系統正在為您隨機分配題目，請稍候...</p>
+</body>
+</html>
