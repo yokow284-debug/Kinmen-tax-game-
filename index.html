@@ -4,114 +4,171 @@ HTML
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>發票存雲端・金門e化互動遊戲</title>
+    <title>發票存雲端 金門e化互動遊戲</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
-        .card {
+        .container {
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
         }
-        h1 {
-            color: #8B2500;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #555;
+        h2 { color: #2c3e50; margin-top: 0; }
+        .question-box { margin: 20px 0; }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            text-align: left;
             font-size: 16px;
-            margin-bottom: 25px;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        .btn-primary {
-            background-color: #1e4620;
+        .option-btn:hover { background: #d0d7de; }
+        .option-btn.correct { background: #2ecc71; color: white; border-color: #27ae60; }
+        .option-btn.wrong { background: #e74c3c; color: white; border-color: #c0392b; }
+        #next-btn {
+            background: #3498db;
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .btn-primary:hover {
-            background-color: #2e6930;
-        }
-        .result-box {
-            background-color: #fef9e7;
-            border: 1px solid #f9e79f;
-            padding: 15px;
+            padding: 12px 20px;
+            font-size: 16px;
             border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #7d6608;
-            font-weight: bold;
-        }
-        .btn-link {
-            display: inline-block;
-            background-color: #1b4f72;
-            color: white;
-            text-decoration: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 25px;
-        }
-        .btn-link:hover {
-            background-color: #21618c;
-        }
-        .hidden {
+            cursor: pointer;
+            float: right;
             display: none;
         }
+        #next-btn:hover { background: #2980b9; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>發票存雲端・金門e化互動遊戲</h1>
-        <p>租稅宣導活動</p>
-        
-        <button id="drawBtn" class="btn-primary" onclick="drawQuestion()">開始抽題</button>
-
-        <div id="resultContainer" class="hidden">
-            <div id="resultText" class="result-box">本次抽到的題目</div>
-            <a id="quizLink" href="https://docs.google.com/forms/d/1GExvo5tsiER1oMqc-1q3J6qVNWCilc9y7plRJ8okQsk/viewform" target="_blank" class="btn-link">前往做答</a>
-        </div>
+<div class="container" id="game-container">
+    <h2>發票存雲端 金門e化互動遊戲</h2>
+    <div id="content">
+        <p>歡迎參加闖關活動！請點擊下方按鈕開始隨機闖關。</p>
+        <button class="option-btn" onclick="startGame()" style="text-align: center; background: #3498db; color: white; font-weight: bold;">開始挑戰</button>
     </div>
+</div>
 
-    <script>
-        // 隨機抽題的項目
-        const topics = [
-            "金門在地租稅",
-            "雲端發票知識（A卷）",
-            "雲端發票知識（B卷）"
-        ];
+<script>
+    // 這裡每一關都有 5 個備選題目，系統每次會「隨機抽 1 題」出來考民眾
+    const stages = [
+        // 第 1 關題庫 (5選1)
+        [
+            { q: "第1關-題目A：小美想參加雲端發票抽獎，她應該怎麼做？", options: ["拿紙本發票回家收好", "請店員將發票存入載具", "不拿發票也沒關係", "請店員把發票丟掉"], answer: 1 },
+            { q: "第1關-題目B：下列哪一項不是雲端發票的好處？", options: ["環保省紙", "自動對獎", "一定會中大獎", "雲端專屬獎"], answer: 2 },
+            { q: "第1關-題目C：手機條碼總共是幾碼開頭？", options: ["以 / 開頭", "以 # 開頭", "以 @ 開頭", "數字開頭"], answer: 0 },
+            { q: "第1關-題目D：索取雲端發票需要準備什麼？", options: ["印章", "手機載具", "現金", "戶口名簿"], answer: 1 },
+            { q: "第1關-題目E：有關雲端發票的敘述何者正確？", options: ["不能對獎", "儲存於載具中", "必須列印出來", "沒有專屬獎"], answer: 1 }
+        ],
+        // 第 2 關題庫 (5選1)
+        [
+            { q: "第2關-題目A：發票存手機條碼最大的好處是什麼？", options: ["中獎不用領獎", "發票集中管理並享專屬獎", "不能查詢發票", "只有學生能用"], answer: 1 },
+            { q: "第2關-題目B：歸戶載具的主要目的是？", options: ["把多個載具整合在一起", "把發票捐給別人", "作廢發票", "列印紙本"], answer: 0 },
+            { q: "第2關-題目C：設定哪一項可以讓中獎獎金自動匯入帳戶？", options: ["領獎密碼", "中獎匯款金融帳戶", "電子信箱", "戶籍地址"], answer: 1 },
+            { q: "第2關-題目D：哪裡可以查詢您的雲端發票？", options: ["財政部統一發票兌獎 App", "只能去便利商店查", "打電話問國稅局", "無法查詢"], answer: 0 },
+            { q: "第2關-題目E：忘記手機條碼驗證碼時該怎麼辦？", options: ["重新辦一支手機", "上官網或 App 重新設定", "作廢帳號", "無法處理"], answer: 1 }
+        ],
+        // 第 3 關題庫 (5選1)
+        [
+            { q: "第3關-題目A：網購時，如何確認發票已存入手機條碼？", options: ["等店家寄紙本", "使用統一發票兌獎 App 查詢", "打電話給網購老闆", "不用確認"], answer: 1 },
+            { q: "第3關-題目B：載具歸戶後，中獎會如何通知？", options: ["主動通知並自動匯款（若有設定）", "不會通知", "用平信寄支票", "必須自己對發票"], answer: 0 },
+            { q: "第3關-題目C：電子發票證明聯如果印出來了，還可以歸戶嗎？", options: ["可以", "不行，紙本不能歸戶載具", "不一定", "要看金額大小"], answer: 1 },
+            { q: "第3關-題目D：店家如果印出紙本電子發票，中獎了要怎麼領？", options: ["憑紙本證明聯領獎", "只能放棄", "自動匯款", "不能領獎"], answer: 0 },
+            { q: "第3關-題目E：下列哪一個不是常見的載具？", options: ["手機條碼", "悠遊卡", "自然人憑證", "身分證字號直接當載具"], answer: 3 }
+        ],
+        // 第 4 關題庫 (5選1)
+        [
+            { q: "第4關-題目A：財政部舉辦的雲端發票「對獎」有幾種專屬獎項？", options: ["只有 500 元", "百萬獎、千元獎等多種專屬獎項", "只有大獎", "沒有專屬獎"], answer: 1 },
+            { q: "第4關-題目B：使用載具儲存發票，中獎機率會如何？", options: ["比較低", "有多一次對獎機會（雲端專屬獎）", "完全一樣", "不能對獎"], answer: 1 },
+            { q: "第4關-題目C：如果紙本發票和雲端發票同時中獎，可以領兩次嗎？", options: ["可以", "不行，只能擇一領獎", "看心情", "看金額"], answer: 1 },
+            { q: "第4關-題目D：中了雲端發票專屬獎，需要繳納印花稅嗎？", options: ["不用", "要繳很多", "看中獎金額", "不確定"], answer: 0 },
+            { q: "第4關-題目E：雲端發票中獎後，領獎期限通常為幾個月？", options: ["1個月", "3個月", "3個月以上（通常約3個月）", "1年"], answer: 2 }
+        ],
+        // 第 5 關題庫 (5選1)
+        [
+            { q: "第5關-題目A：捐贈雲端發票給社福團體，可以做什麼？", options: ["幫自己累積點數", "支持公益並有機會中獎", "把發票作廢", "沒有用"], answer: 1 },
+            { q: "第5關-題目B：捐贈發票時，可以捐給誰？", options: ["只能捐給政府", "核准登記的社會福利團體", "捐給路人", "自己口袋"], answer: 1 },
+            { q: "第5關-題目C：愛心碼是用來做什麼的？", options: ["解鎖手機", "捐贈雲端發票給特定團體", "買東西打折", "兌換現金"], answer: 1 },
+            { q: "第5關-題目D：愛心碼通常是幾碼數字？", options: ["3到7碼", "10碼", "20碼", "不一定"], answer: 0 },
+            { q: "第5關-題目E：結帳時出示愛心碼，發票會去哪裡？", options: ["存入自己帳戶", "捐贈給該社福團體", "印成紙本", "作廢"], answer: 1 }
+        ],
+        // 第 6 關題庫 (5選1)
+        [
+            { q: "第6關-題目A：推廣雲端發票最核心的環節是什麼？", options: ["多印紙本", "無紙化與環保永續", "增加碳排放", "浪費紙張"], answer: 1 },
+            { q: "第6關-題目B：下列哪一項行為最符合綠色消費？", options: ["索取大量紙本發票", "隨手攜帶載具、使用雲端發票", "每天換新餐具", "不用環保杯"], answer: 1 },
+            { q: "第6關-題目C：金門推動e化互動遊戲的主要目的為何？", options: ["宣導稅政與雲端發票好處", "增加紙張消耗", "讓大家考試", "沒有目的"], answer: 0 },
+            { q: "第6關-題目D：消費時主動說「發票存裡面」，指的是什麼？", options: ["存在錢包裡", "存入載具", "存在心裡", "丟掉"], answer: 1 },
+            { q: "第6關-題目E：完成六關挑戰後，最應該做的是什麼？", options: ["填寫回饋問卷並支持雲端發票", "把手機摔壞", "忘記這件事", "再也不買東西"], answer: 0 }
+        ]
+    ];
 
-        function drawQuestion() {
-            // 隨機抽出一項
-            const randomIndex = Math.floor(Math.random() * topics.length);
-            const selectedTopic = topics[randomIndex];
+    let currentStage = 0;
+    let selectedQuestions = [];
 
-            // 顯示結果
-            document.getElementById("resultText").innerText = "本次抽到：" + selectedTopic;
-            
-            // 變更按鈕文字為重新抽題
-            const btn = document.getElementById("drawBtn");
-            btn.innerText = "重新抽題";
+    function startGame() {
+        // 每一關隨機抽 1 題
+        selectedQuestions = stages.map(stage => {
+            const randomIndex = Math.floor(Math.random() * stage.length);
+            return stage[randomIndex];
+        });
+        currentStage = 0;
+        showQuestion();
+    }
 
-            // 顯示結果區塊與正確的表單連結
-            document.getElementById("resultContainer").classList.remove("hidden");
+    function showQuestion() {
+        if (currentStage >= selectedQuestions.length) {
+            document.getElementById('game-container').innerHTML = `
+                <h2>🎉 恭喜通關！</h2>
+                <p>您已成功完成全部六大闖關挑戰！感謝您的熱情參與。</p>
+                <a href="#" style="display:inline-block; margin-top:20px; padding:12px 20px; background:#2ecc71; color:white; text-decoration:none; border-radius:8px;">填寫活動回饋表單</a>
+            `;
+            return;
         }
-    </script>
+
+        const qData = selectedQuestions[currentStage];
+        let html = `<h3>第 ${currentStage + 1} 關 / 共 6 關</h3>`;
+        html += `<div class="question-box"><p><b>${qData.q}</b></p>`;
+        
+        qData.options.forEach((opt, idx) => {
+            html += `<button class="option-btn" onclick="checkAnswer(${idx}, ${qData.answer})">${opt}</button>`;
+        });
+        
+        html += `</div><button id="next-btn" onclick="nextStage()">下一關 ➔</button>`;
+        document.getElementById('content').innerHTML = html;
+    }
+
+    function checkAnswer(selected, correct) {
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach((btn, idx) => {
+            btn.disabled = true;
+            if (idx === correct) btn.classList.add('correct');
+            if (idx === selected && selected !== correct) btn.classList.add('wrong');
+        });
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextStage() {
+        currentStage++;
+        showQuestion();
+    }
+</script>
 
 </body>
 </html>
