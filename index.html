@@ -1,4 +1,4 @@
- HTML
+HTML
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -9,7 +9,6 @@
         :root {
             --primary-color: #0284c7;
             --primary-dark: #0369a1;
-            --accent-color: #38bdf8;
             --bg-color: #f0f9ff;
             --card-bg: #ffffff;
             --text-color: #1e293b;
@@ -24,7 +23,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.25;
+            line-height: 1.4;
             padding: 16px;
             display: flex;
             justify-content: center;
@@ -38,7 +37,6 @@
             border-radius: var(--border-radius);
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             padding: 24px;
-            overflow: hidden;
         }
         h1 {
             color: var(--primary-dark);
@@ -85,12 +83,13 @@
             margin-bottom: 6px;
             color: #334155;
         }
-        select, input[type="text"] {
+        select {
             width: 100%;
             padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
             font-size: 1rem;
+            background: white;
         }
         .stage-indicator {
             display: flex;
@@ -136,7 +135,7 @@
         }
         .result-box {
             text-align: center;
-            padding: 20px 0;
+            padding: 10px 0;
         }
         .result-box h2 {
             color: #16a34a;
@@ -166,9 +165,9 @@
     <h1>發票存雲端 金門e化互動遊戲</h1>
     <div class="subtitle">租稅宣導活動・六關挑戰</div>
 
-    <!-- Screen 1: Welcome & Basic Info -->
+    <!-- Screen 1: Welcome -->
     <div id="screen-welcome" class="screen active">
-        <p style="margin-bottom: 15px; line-height: 1.4;">歡迎參加「發票存雲端 金門e化互動遊戲」租稅宣導活動！本活動不蒐集姓名、電話等個人資料，請安心作答。請先填寫基本資料以開始闖關：</p>
+        <p style="margin-bottom: 15px;">歡迎參加「發票存雲端 金門e化互動遊戲」租稅宣導活動！本活動不蒐集姓名、電話等個人資料，請安心作答。請先填寫基本資料以開始闖關：</p>
         <div class="form-group">
             <label>1. 您的性別</label>
             <select id="q-gender">
@@ -211,10 +210,10 @@
         <button class="btn" onclick="startQuiz()">開始闖關 (共6關)</button>
     </div>
 
-    <!-- Screen 2: Quiz Game -->
+    <!-- Screen 2: Quiz -->
     <div id="screen-quiz" class="screen">
         <div class="stage-indicator">
-            <span id="stage-title">第一關：雲端發票小達人</span>
+            <span id="stage-title">第一關</span>
             <span id="progress-text">第 1 / 6 關</span>
         </div>
         <div class="question-box">
@@ -224,52 +223,30 @@
         <button id="next-btn" class="btn" onclick="nextStage()" style="display:none;">進入下一關</button>
     </div>
 
-    <!-- Screen 3: Feedback Survey -->
+    <!-- Screen 3: Feedback -->
     <div id="screen-feedback" class="screen">
         <h2>活動回饋問卷</h2>
         <p style="margin-bottom: 15px; color: #64748b; font-size: 0.9rem;">請協助填寫以下回饋，即可完成本次闖關！</p>
         <div class="form-group">
             <label>1. 您對本次活動整體滿意度為何？</label>
-            <select id="f-sat">
-                <option>非常滿意</option>
-                <option>滿意</option>
-                <option>普通</option>
-                <option>不滿意</option>
-                <option>非常不滿意</option>
-            </select>
+            <select id="f-sat"><option>非常滿意</option><option>滿意</option><option>普通</option><option>不滿意</option></select>
         </div>
         <div class="form-group">
             <label>2. 本次活動讓您最大的收穫是什麼？</label>
-            <select id="f-benefit">
-                <option>增加租稅知識</option>
-                <option>更了解雲端發票</option>
-                <option>提升防詐騙觀念</option>
-                <option>認識性別平等</option>
-                <option>其他</option>
-            </select>
+            <select id="f-benefit"><option>增加租稅知識</option><option>更了解雲端發票</option><option>提升防詐騙觀念</option><option>認識性別平等</option></select>
         </div>
         <div class="form-group">
             <label>3. 您最喜歡本次活動的哪一項內容？</label>
-            <select id="f-like">
-                <option>六大闖關遊戲</option>
-                <option>捐贈雲端發票送好禮</option>
-                <option>好稅獎介紹</option>
-                <option>統一發票兌獎APP推廣禮</option>
-                <option>其他</option>
-            </select>
+            <select id="f-like"><option>六大闖關遊戲</option><option>捐贈雲端發票送好禮</option><option>好稅獎介紹</option><option>統一發票兌獎APP推廣</option></select>
         </div>
         <div class="form-group">
             <label>4. 您是否願意再次參加本所舉辦的租稅宣導活動？</label>
-            <select id="f-again">
-                <option>願意</option>
-                <option>視活動內容而定</option>
-                <option>不願意</option>
-            </select>
+            <select id="f-again"><option>願意</option><option>視活動內容而定</option><option>不願意</option></select>
         </div>
         <button class="btn" onclick="finishQuiz()">提交回饋並領取獎品畫面</button>
     </div>
 
-    <!-- Screen 4: Success / Reward Screen -->
+    <!-- Screen 4: Result -->
     <div id="screen-result" class="screen">
         <div class="result-box">
             <h2>🎉 恭喜完成六關挑戰！</h2>
@@ -289,60 +266,48 @@
             title: "第一關｜雲端發票小達人",
             questions: [
                 { q: "小美想參加雲端發票抽獎，又不想拿紙本發票，她應該怎麼做？", options: ["拿紙本發票回家收好。", "請店員將發票存入載具。", "不拿發票也沒關係。", "請店員把發票丟掉。"], answer: 1 },
-                { q: "小美到學校附近飲料店買飲料，店員問：「發票要存手機條碼嗎？」選擇存手機條碼最大的好處是什麼？", options: ["中獎時一定不用領獎。", "發票可集中管理，還可享有雲端發票專屬獎。", "存手機條碼後就不能查詢發票。", "只有學生才能使用手機條碼。"], answer: 1 },
-                { q: "阿宏在網路購物完成付款後，想確認電子發票是否已存入自己的手機條碼，最方便的方式是什麼？", options: ["等店家寄紙本發票到家。", "使用財政部統一發票兌獎 App 查詢。", "打電話請店家每天幫忙查詢。", "重新再購買一次商品。"], answer: 1 },
-                { q: "小華把雲端發票存入手機條碼，並事先設定好領獎帳戶，中獎後有什麼好處？", options: ["一定要到超商列印發票才能領獎。", "一定要到國稅局辦理領獎。", "獎金可自動匯入指定帳戶，方便又省時。", "中獎後必須重新登錄手機條碼。"], answer: 2 },
-                { q: "小美想把雲端發票捐給公益團體，以下哪一種方式最方便？", options: ["把紙本發票寄給公益團體。", "使用手機條碼或統一發票兌獎 App，設定捐贈碼捐贈雲端發票。", "中獎後才能捐贈發票。", "雲端發票不能捐贈。"], answer: 1 }
+                { q: "店員問：「發票要存手機條碼嗎？」選擇存手機條碼最大的好處是什麼？", options: ["中獎時一定不用領獎。", "發票可集中管理，還可享有雲端發票專屬獎。", "存手機條碼後就不能查詢發票。", "只有學生才能使用手機條碼。"], answer: 1 },
+                { q: "網購完成後，想確認電子發票是否已存入手機條碼，最方便的方式是什麼？", options: ["等店家寄紙本發票。", "使用財政部統一發票兌獎 App 查詢。", "打電話請店家查詢。", "重新再購買一次。"], answer: 1 }
             ]
         },
         {
             title: "第二關｜租稅知識小達人",
             questions: [
-                { q: "小華暑假打工賺到人生第一份薪水，他想了解為什麼要依法申報所得稅。請問下列哪一項是正確的觀念？", options: ["繳稅只是增加自己的負擔，沒有其他作用。", "只有高收入的人才需要了解租稅知識。", "租稅是政府推動公共建設、教育、醫療及各項公共服務的重要財源。", "不管收入多少，都不需要關心租稅規定。"], answer: 2 },
-                { q: "小美第一次收到綜合所得稅結算申報通知，覺得內容很複雜，想直接放著不管。請問下列哪一種做法最正確？", options: ["不理會通知，等國稅局再提醒就好。", "先向家人、學校老師或國稅局詢問，並依規定辦理申報。", "在網路上找不明人士代辦即可，不必確認身分。", "覺得麻煩，就請朋友代替自己隨便填寫資料。"], answer: 1 },
-                { q: "阿杰是一位網紅，最近開始接廠商合作拍影片，並獲得合作收入。請問下列哪一項觀念是正確的？", options: ["只要是網路收入，就不用依法申報。", "只要不是正職工作，就不用申報所得。", "無論是拍影片、直播或接業配，只要有所得，都應依稅法規定辦理。", "網紅收入不用保存任何相關資料。"], answer: 2 },
-                { q: "小美到金門大學就讀後在外租屋，想申請租金補貼。下列哪一項說法正確？", options: ["申請租金補貼一定要先取得房東同意。", "只有房東才能申請租金補貼。", "申請租金補貼後，房東一定會被加重課稅。", "符合資格申請租金補貼後，房東可成為公益出租人，並享有綜合所得稅優惠。"], answer: 3 },
-                { q: "阿宏利用 AI 查詢稅務資訊，但仍不確定答案是否正確，最適合怎麼做？", options: ["完全相信 AI 的回答。", "撥打國稅局免付費電話 0800-000-321 詢問。", "聽朋友怎麼說就怎麼做。", "不理會，等收到通知再說。"], answer: 1 }
+                { q: "小華打工賺到薪水，為什麼要依法申報所得稅？", options: ["繳稅只是增加負擔。", "只有高收入才需要了解租稅。", "租稅是政府推動公共建設、教育醫療的重要財源。", "不管收入多少都不需要關心。"], answer: 2 },
+                { q: "收到綜合所得稅申報通知覺得複雜，哪一種做法最正確？", options: ["不理會通知。", "向家人、學校老師或國稅局詢問並依規定申報。", "在網路上找不明人士代辦。", "請朋友隨便填寫。"], answer: 1 },
+                { q: "網紅接業配獲得收入，下列觀念何者正確？", options: ["網路收入不用申報。", "非正職工作不用申報。", "只要有所得，都應依稅法規定辦理。", "網紅收入不用保存資料。"], answer: 2 }
             ]
         },
         {
             title: "第三關｜金門在地租稅文化",
             questions: [
-                { q: "小美到金門買貢糖和高粱酒，聽朋友說：「金門免徵營業稅，所以店家都不用開立統一發票。」請問下列哪一項說法正確？", options: ["金門免徵營業稅，所以所有店家都不用開立統一發票。", "金門雖免徵營業稅，但經核定使用統一發票的營業人，仍應依法開立統一發票。", "金門只有賣高粱酒才要開立統一發票。", "金門只有觀光客消費才會開立統一發票。"], answer: 1 },
-                { q: "阿凱到金門一家使用統一發票的特產店購買貢糖，店員忘記開立統一發票。下列哪一項說法正確？", options: ["金門免徵營業稅，所以店家可以不用開立統一發票。", "消費者沒有主動索取，店家就不用開立統一發票。", "使用統一發票之營業人，應主動開立統一發票並交付消費者。", "只有消費金額超過一定金額才需要開立統一發票。"], answer: 2 },
-                { q: "小美到金門一家使用統一發票的商店消費後，主動索取統一發票。下列哪些是主動索取統一發票的好處？", options: ["可參加統一發票開獎，使用雲端發票還可享有雲端發票專屬獎的中獎機會。", "可作為購物憑證，保障消費權益。", "可防止商家逃漏稅，維護國家稅收。", "以上皆是。"], answer: 3 },
-                { q: "小華到金門旅遊購買伴手禮，在使用統一發票的商店結帳時，店員詢問是否要將發票存入手機條碼。請問使用雲端發票有哪些好處？", options: ["不怕發票遺失，還可享有雲端發票專屬獎的中獎機會。", "可以免繳營業稅。", "可以直接折抵下次購物金額。", "可以免繳綜合所得稅。"], answer: 0 },
-                { q: "金門地區實施免徵營業稅制度，下列哪一項說法正確？", options: ["金門所有商家都不用開立統一發票。", "金門所有商品都免稅。", "金門免徵營業稅，但仍應依相關規定辦理稅務及統一發票事項。", "金門居民都不用繳稅。"], answer: 2 }
+                { q: "金門免徵營業稅，關於店家開立統一發票，下列說法正確的是？", options: ["所有店家都不用開立統一發票。", "經核定使用統一發票的營業人，仍應依法開立統一發票。", "金門只有賣高粱酒才要開立。", "金門只有觀光客消費才要開立。"], answer: 1 },
+                { q: "在金門使用統一發票的特產店消費，主動索取統一發票的好處為何？", options: ["可參加開獎，雲端發票還可享專屬獎抽獎機會。", "作為購物憑證保障權益。", "防止商家逃漏稅維護國家稅收。", "以上皆是。"], answer: 3 },
+                { q: "金門地區實施免徵營業稅制度，下列說法何者正確？", options: ["金門所有商家都不用開立發票。", "金門所有商品都免稅。", "金門免徵營業稅，但仍應依相關規定辦理稅務及統一發票事項。", "金門居民不用繳稅。"], answer: 2 }
             ]
         },
         {
             title: "第四關｜性別平等",
             questions: [
-                { q: "阿公說：「男生要拜祖先，所以遺產應該留給男生；已出嫁的大姑、小姑就不用分家產...」依照我國現行民法規定，下列何者正確？", options: ["已出嫁的女兒不能繼承父母遺產。", "男生拜祖先，所以可以多分遺產。", "子女的繼承權不因性別或是否出嫁而有所不同。", "長孫可以直接繼承祖父全部遺產。"], answer: 2 },
-                { q: "晚餐後，媽媽正在洗碗、整理廚房。爸爸說：「男生不用做家事，去休息就好了。」小華笑著說...下列哪一種做法最符合性別平等觀念？", options: ["家事應由媽媽和姊姊負責。", "男生不用做家事，只要專心讀書。", "家事應由家人共同分擔，不因性別而有所不同。", "女生比較細心，所以所有家事都由女生負責。"], answer: 2 },
-                { q: "學校舉辦職涯分享會，小美說：「我想當警察。」同學小強笑著說：「警察不是男生在當的嗎？」下列哪一種觀念最符合性別平等？", options: ["男生比較適合當警察，女生比較適合當護理師。", "選擇職業應依照性別決定。", "每個人都應選擇傳統認為適合自己性別的工作。", "每個人都可以依自己的興趣、能力選擇職業，不受性別限制。"], answer: 3 },
-                { q: "小明的同事阿國請了育嬰留職停薪，回來上班後，同事小王笑著說：「照顧小孩不是媽媽的工作嗎？」主管聽到後說...下列何者最符合性別平等？", options: ["照顧孩子是媽媽的責任，爸爸不用請育嬰假。", "男性請育嬰假會影響工作，不應該請。", "只有女性才需要兼顧家庭與工作。", "不論男女，都可以共同照顧家庭，職場也應給予支持。"], answer: 3 },
-                { q: "小美放學後，發現有人連續好幾天跟著她，還一直傳送訊息，讓她感到害怕。遇到跟蹤騷擾時，下列哪一種做法最適當？", options: ["假裝沒事，自己忍耐。", "與對方見面，把事情說清楚。", "前往安全地點，必要時撥打110或113尋求協助。", "覺得只是開玩笑，不需要理會。"], answer: 2 }
+                { q: "關於遺產繼承，下列觀念何者正確？", options: ["已出嫁女兒不能繼承。", "男生拜祖先所以多分遺產。", "子女的繼承權不因性別或是否出嫁而有所不同。", "長孫可直接繼承全部遺產。"], answer: 2 },
+                { q: "關於家事分工，下列哪一種做法最符合性別平等？", options: ["家事由媽媽和姊姊負責。", "男生不用做家事只要讀書。", "家事應由家人共同分擔，不因性別而不同。", "女生比較細心所以家事全由女生做。"], answer: 2 },
+                { q: "關於職業選擇，下列何者符合性別平等？", options: ["男生適合當警察女生適合當護理師。", "職業應依照性別決定。", "每個人選傳統適合自己的工作。", "每個人可依興趣與能力選擇職業，不受性別限制。"], answer: 3 }
             ]
         },
         {
             title: "第五關｜165反詐騙",
             questions: [
-                { q: "小明收到一封電子郵件，內容寫著：「您的雲端發票中獎，請立即點擊連結並輸入帳號密碼，否則將取消領獎資格。」請問下列何者最適當？", options: ["立即點擊連結完成領獎。", "輸入帳號、密碼及個人資料。", "不點擊郵件連結，改到官方網站或官方 APP 查詢，必要時撥打165查證。", "依照郵件指示操作 ATM。"], answer: 2 },
-                { q: "小華收到一則手機簡訊，內容寫著：「恭喜您的雲端發票中獎！請立即點擊連結領獎。」請問下列何者正確？", options: ["立即點擊簡訊中的連結領獎。", "依照簡訊要求輸入帳號、密碼。", "財政部不會主動傳送中獎簡訊，應到官方網站或官方 APP 查詢。", "為了確認身分，先提供信用卡資料。"], answer: 2 },
-                { q: "小華收到一封電子郵件，內容寫著：「請立即輸入您的信用卡卡號及安全碼，才能完成電子發票載具歸戶及領獎設定。」請問下列何者正確？", options: ["依照郵件要求輸入信用卡卡號及安全碼。", "為了順利領獎，立即完成資料填寫。", "財政部電子發票整合服務平台辦理載具歸戶或領獎設定時，絕對不會寄發電子郵件要求民眾輸入信用卡卡號及安全碼。", "將信用卡資料提供給對方確認身分。"], answer: 2 },
-                { q: "小強收到一封電子郵件，通知他中獎，但必須先繳納稅款才能領取獎金。請問下列何者正確？", options: ["先繳納稅款再領獎。", "依照電子郵件指示匯款。", "先付款，再向寄件者確認。", "財政部不會要求民眾預繳稅款才能領獎。"], answer: 3 },
-                { q: "小美收到一則可疑的雲端發票中獎通知，不知道是真是假。請問下列何者最適當？", options: ["點擊通知中的連結查看。", "依照通知提供個人資料。", "依照通知操作ATM。", "先透過財政部電子發票整合服務平台或官方APP查詢，再依需要撥打165反詐騙專線查證。"], answer: 3 }
+                { q: "收到電子郵件說雲端發票中獎，要點連結輸入帳號密碼，應如何處理？", options: ["立即點連結領獎。", "輸入帳號密碼與個資。", "不點連結，改到官方網站或 App 查詢，必要時撥打165。", "依照指示操作 ATM。"], answer: 2 },
+                { q: "收到簡訊通知雲端發票中獎請點連結領獎，正確做法是？", options: ["點連結領獎。", "輸入帳號密碼。", "財政部不會主動傳送中獎簡訊，應至官方管道查詢。", "提供信用卡資料確認身分。"], answer: 2 },
+                { q: "收到郵件要求輸入信用卡號及安全碼才能完成發票歸戶，正確嗎？", options: ["照辦以完成領獎。", "財政部平台絕對不會寄信要求輸入信用卡號及安全碼。", "為了順利領獎立刻填寫。", "將信用卡資料提供給對方。"], answer: 1 }
             ]
         },
         {
             title: "第六關｜納稅權益",
             questions: [
-                { q: "阿明到臺灣工作，遇到納稅權益問題，原本以為一定要搭飛機回金門辦理。後來同事告訴他，其實不用特地搭飛機回金門。請問下列何者正確？", options: ["一定要回金門才能辦理。", "要請家人代辦才可以。", "等回金門再處理就好。", "可利用金門稽徵所視訊服務，由納稅者權利保護官提供協助。"], answer: 3 },
-                { q: "阿美與國稅局發生稅捐爭議，希望有人協助溝通協調。請問下列何者最適當？", options: ["找朋友協調。", "在網路發文抱怨。", "不提出任何申請。", "向納稅者權利保護官申請稅捐爭議溝通協調。"], answer: 3 },
-                { q: "小明接受國稅局調查時，擔心自己記不住調查內容。依據《納稅者權利保護法》，下列何者正確？", options: ["調查過程不得錄音錄影。", "只能用紙筆做筆記。", "不可以留下任何紀錄。", "調查過程可以錄音或錄影。"], answer: 3 },
-                { q: "小美聽說《納稅者權利保護法》有保障納稅人的基本權益。請問下列何者正確？", options: ["所有生活費用都要課稅。", "基本生活費用沒有任何保障。", "基本生活費用一定要先課稅。", "基本生活費用不課稅。"], answer: 3 },
-                { q: "小華認為國稅局在處理案件時，應依法保障納稅人的權益。請問下列何者正確？", options: ["辦理案件不用遵守法律程序。", "國稅局可自行決定處理方式。", "納稅人的權益不用受到保障。", "國稅局應落實正當法律程序，保障納稅人權益。"], answer: 3 }
+                { q: "在臺灣工作遇到納稅權益問題，一定要搭飛機回金門辦理嗎？", options: ["一定要回金門。", "請家人代辦。", "等回金門再處理。", "可利用金門稽徵所視訊服務，由納稅者權利保護官協助。"], answer: 3 },
+                { q: "與國稅局發生稅捐爭議希望有人協助溝通協調，最適當的做法是？", options: ["找朋友協調。", "在網路發文抱怨。", "向納稅者權利保護官申請溝通協調。", "不提出任何申請。"], answer: 2 },
+                { q: "接受國稅局調查時，依據《納稅者權利保護法》，下列何者正確？", options: ["調查過程不得錄音錄影。", "只能用紙筆做筆記。", "不可以留下紀錄。", "調查過程可以錄音或錄影。"], answer: 3 }
             ]
         }
     ];
@@ -351,16 +316,10 @@
     let currentSelectedQuestion = null;
 
     function startQuiz() {
-        const gender = document.getElementById('q-gender').value;
-        const age = document.getElementById('q-age').value;
-        const identity = document.getElementById('q-identity').value;
-        const carrier = document.getElementById('q-carrier').value;
-
-        if (!gender || !age || !identity || !carrier) {
+        if (!document.getElementById('q-gender').value || !document.getElementById('q-age').value || !document.getElementById('q-identity').value || !document.getElementById('q-carrier').value) {
             alert("請完整填寫基本資料再開始闖關！");
             return;
         }
-
         document.getElementById('screen-welcome').classList.remove('active');
         document.getElementById('screen-quiz').classList.add('active');
         loadStage();
@@ -372,19 +331,15 @@
             document.getElementById('screen-feedback').classList.add('active');
             return;
         }
-
         const stage = stagesData[currentStageIndex];
         document.getElementById('stage-title').innerText = stage.title;
         document.getElementById('progress-text').innerText = `第 ${currentStageIndex + 1} / 6 關`;
-
-        const randomIndex = Math.floor(Math.random() * stage.questions.length);
-        currentSelectedQuestion = stage.questions[randomIndex];
-
+        
+        currentSelectedQuestion = stage.questions[Math.floor(Math.random() * stage.questions.length)];
         document.getElementById('question-text').innerText = currentSelectedQuestion.q;
         
         const optionsList = document.getElementById('options-list');
         optionsList.innerHTML = '';
-        
         currentSelectedQuestion.options.forEach((opt, index) => {
             const li = document.createElement('li');
             li.className = 'option-item';
@@ -392,19 +347,16 @@
             li.onclick = () => selectOption(index, li);
             optionsList.appendChild(li);
         });
-
         document.getElementById('next-btn').style.display = 'none';
     }
 
     function selectOption(selectedIndex, element) {
-        const items = document.querySelectorAll('.option-item');
-        items.forEach(item => item.classList.remove('selected'));
+        document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
         element.classList.add('selected');
-
         if (selectedIndex === currentSelectedQuestion.answer) {
             alert("回答正確！太棒了！");
         } else {
-            alert("答案不太對喔！不過沒關係，我們繼續闖下一關！");
+            alert("答案不太對喔！不過沒關係，我們繼續下一題！");
         }
         document.getElementById('next-btn').style.display = 'block';
     }
