@@ -1,73 +1,93 @@
-  
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>發票存雲端．金門e化互動遊戲</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh;
-      display: flex; justify-content: center; align-items: center;
-      font-family: "Microsoft JhengHei", Arial, sans-serif;
-      background: linear-gradient(135deg, #fff8df, #dff5ff);
-      color: #333;
-    }
-    .card {
-      width: min(92%, 620px); padding: 40px 25px;
-      background: #ffffff; border-radius: 24px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15); text-align: center;
-    }
-    h1 { margin: 0 0 12px; font-size: clamp(28px, 6vw, 44px); color: #d35400; }
-    .subtitle { margin-bottom: 30px; font-size: 22px; font-weight: bold; }
-    button {
-      padding: 16px 38px; border: 0; border-radius: 50px;
-      background: #087f5b; color: #ffffff; font-size: 24px; font-weight: bold; cursor: pointer;
-    }
-    button:hover { background: #066b4d; }
-    #result {
-      display: none; margin-top: 28px; padding: 20px;
-      border-radius: 16px; background: #fff3bf; font-size: 25px; font-weight: bold;
-    }
-    #goButton { display: none; margin-top: 18px; background: #1971c2; }
-    .notice { margin-top: 25px; font-size: 16px; color: #666; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發票存雲端・金門e化互動遊戲</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f6f8;
+            font-family: sans-serif;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+        }
+        h1 { color: #8b2613; margin-bottom: 0.5rem; }
+        h2 { color: #333; font-size: 1.2rem; margin-top: 0; }
+        .btn {
+            background-color: #0b6638;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.2rem;
+            border-radius: 24px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            font-weight: bold;
+        }
+        .btn:hover { background-color: #084d2a; }
+        .result-box {
+            display: none;
+            margin-top: 1.5rem;
+            background-color: #fef9e7;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .link-btn {
+            display: inline-block;
+            background-color: #0b4991;
+            color: white;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <main class="card">
-    <h1>發票存雲端．金門e化互動遊戲</h1>
-    <div class="subtitle">租稅宣導活動</div>
-    <button id="drawButton" type="button">開始抽題</button> 
-    <div id="result"></div>
-    <button id="goButton" type="button">前往做答</button>
-    <div class="notice">請按「開始抽題」，系統將隨機抽出一個主題。</div>
-  </main>
-  <script>
-    const forms = [
-      "https://docs.google.com/forms/d/1uMYk7SqLIgChX7iixLyfQB8TYCYl0s2az8cRgs-JJUY/edit", 
-      "https://docs.google.com/forms/d/1GExvo5tsiER1oMqc-1q3J6qVNWCilc9y7plRJ8okQsk/edit"
-    ];
-    const drawButton = document.getElementById("drawButton");
-    const result = document.getElementById("result");
-    const goButton = document.getElementById("goButton");
-    let chosenUrl = "";
 
-    drawButton.addEventListener("click", function () {
-      const randomIndex = Math.floor(Math.random() * forms.length);
-      chosenUrl = forms[randomIndex];
-      result.textContent = "已隨機分配好題目！";
-      result.style.display = "block";
-      goButton.style.display = "inline-block";
-      drawButton.disabled = true;
-      drawButton.textContent = "抽題完成";
-    });
+<div class="card">
+    <h1>發票存雲端・金門e化互動遊戲</h1>
+    <h2>租稅宣導活動</h2>
+    
+    <button class="btn" id="drawBtn" onclick="drawQuiz()">開始抽題</button>
 
-    goButton.addEventListener("click", function () {
-      if (chosenUrl) {
-        window.location.href = chosenUrl;
-      }
-    });
-  </script>
+    <div id="resultBox" class="result-box">
+        <p id="resultText"></p>
+        <a id="quizLink" class="link-btn" href="#" target="_self">前往做答</a>
+    </div>
+</div>
+
+<script>
+    function drawQuiz() {
+        // 50% / 50% 隨機抽取 A 卷或 B 卷
+        const isA = Math.random() < 0.5;
+        const quizName = isA ? "金門在地租稅 (A卷)" : "雲端發票知識 (B卷)";
+        
+        // 請在此處確認填入您的 Google 表單連結
+        const formUrl = "https://docs.google.com/forms/d/1uMYk7SqLIgChX7iixLyfQB8TYCYI0s2az8cRgs-JJUY/edit";
+
+        document.getElementById("resultText").innerText = "本次抽到：" + quizName;
+        document.getElementById("quizLink").href = formUrl;
+        document.getElementById("resultBox").style.display = "block";
+        document.getElementById("drawBtn").innerText = "重新抽題";
+    }
+</script>
+
 </body>
 </html>
