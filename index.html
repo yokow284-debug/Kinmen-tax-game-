@@ -69,21 +69,23 @@
 
     <div id="resultBox" class="result-box">
         <p id="resultText"></p>
-        <a id="quizLink" class="link-btn" href="#" target="_self">前往做答</a>
+        <a id="quizLink" class="link-btn" href="#" target="_self">前往作答</a>
     </div>
 </div>
 
 <script>
     function drawQuiz() {
-        // 50% / 50% 隨機抽取 A 卷或 B 卷
+        // 定義 A 卷與 B 卷的正式填答網址
+        const urlA = "https://docs.google.com/forms/d/1uMYk7SqLIgChX7iixLyfQB8TYCYI0s2az8cRgs-JJUY/viewform";
+        const urlB = "https://docs.google.com/forms/d/1GExvo5tsiER1oMqc-1q3J6qVNWCilc9y7pIRJ8okQsk/viewform";
+
+        // 50% 機率隨機抽取 A 卷或 B 卷
         const isA = Math.random() < 0.5;
         const quizName = isA ? "金門在地租稅 (A卷)" : "雲端發票知識 (B卷)";
-        
-        // 請在此處確認填入您的 Google 表單連結
-        const formUrl = "https://docs.google.com/forms/d/1uMYk7SqLIgChX7iixLyfQB8TYCYI0s2az8cRgs-JJUY/edit";
+        const targetUrl = isA ? urlA : urlB;
 
         document.getElementById("resultText").innerText = "本次抽到：" + quizName;
-        document.getElementById("quizLink").href = formUrl;
+        document.getElementById("quizLink").href = targetUrl;
         document.getElementById("resultBox").style.display = "block";
         document.getElementById("drawBtn").innerText = "重新抽題";
     }
